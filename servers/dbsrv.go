@@ -8,16 +8,16 @@ import (
 	"time"
 )
 
-// Controller -
-type DBController struct {
+// DBServer -
+type DBServer struct {
 	db      *services.DataBase
 	router  *routing.Router
 	errChan chan error
 	ttl     time.Duration
 }
 
-func NewDBController(db *services.DataBase, router *routing.Router, ttl time.Duration) *DBController {
-	return &DBController{
+func NewDBServer(db *services.DataBase, router *routing.Router, ttl time.Duration) *DBServer {
+	return &DBServer{
 		db:      db,
 		router:  router,
 		errChan: make(chan error, 100),
@@ -25,7 +25,7 @@ func NewDBController(db *services.DataBase, router *routing.Router, ttl time.Dur
 	}
 }
 
-func (c *DBController) Run(addr string, checkerSleep time.Duration) {
+func (c *DBServer) Run(addr string, checkerSleep time.Duration) {
 	c.registerHandlers()
 	go c.db.Checker(checkerSleep)
 	go c.ListenAndServe(addr)
@@ -33,19 +33,19 @@ func (c *DBController) Run(addr string, checkerSleep time.Duration) {
 }
 
 // ListenAndServe -
-func (c *DBController) ListenAndServe(addr string) {
+func (c *DBServer) ListenAndServe(addr string) {
 	log.Print("Listen and server addr = ", addr)
 	c.errChan <- fasthttp.ListenAndServe(addr, c.router.HandleRequest)
 }
 
 // ReadErrChan -
-func (c *DBController) ReadErrChan() {
+func (c *DBServer) ReadErrChan() {
 	for err := range c.errChan {
 		log.Print("handlers server error: ", err)
 	}
 }
 
-func (c *DBController) registerHandlers() {
+func (c *DBServer) registerHandlers() {
 	c.router.Get("/products", c.GetProducts)
 	c.router.Get(`/products/<productid:\d+>/reserve`, c.ReserveProduct)
 	c.router.Post(`/reserves/accept`, c.AcceptReserve)

@@ -15,7 +15,7 @@ type HashResp struct {
 	Hash string `json:"hash"`
 }
 
-func (c *DBController) GetProducts(ctx *routing.Context) error {
+func (c *DBServer) GetProducts(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 
 	products := c.db.GetProducts()
@@ -35,7 +35,7 @@ func (c *DBController) GetProducts(ctx *routing.Context) error {
 	return nil
 }
 
-func (c *DBController) ReserveProduct(ctx *routing.Context) error {
+func (c *DBServer) ReserveProduct(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 	productIDStr := ctx.Param("productid")
 	productID, err := strconv.ParseInt(productIDStr, 10, 64)
@@ -65,7 +65,7 @@ func (c *DBController) ReserveProduct(ctx *routing.Context) error {
 	return nil
 }
 
-func (c *DBController) AcceptReserve(ctx *routing.Context) error {
+func (c *DBServer) AcceptReserve(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 
 	requestData := &HashResp{}

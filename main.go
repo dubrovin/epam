@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"github.com/dubrovin/epam/models"
 	"github.com/dubrovin/epam/servers"
 	"github.com/dubrovin/epam/services"
-	"flag"
 	"github.com/qiangxue/fasthttp-routing"
 	"log"
 	"time"
@@ -26,17 +26,26 @@ func main() {
 		db := services.NewDataBase()
 		db.AddProduct(&models.Product{TTL: defaultTTL})
 
-		controller := servers.NewDBController(db, routing.New(), defaultTTL)
+		controller := servers.NewDBServer(db, routing.New(), defaultTTL)
 		controller.Run(*addr, defaultTTL)
 		for {
-			println("Heartbeat")
+			println("Heartbeat db")
 			time.Sleep(time.Second * 10)
 			db.AddProduct(&models.Product{TTL: defaultTTL})
 		}
 	}
 
 	if *service == "watcher" {
-		_ = 0
+		db := services.NewDataBase()
+		db.AddProduct(&models.Product{TTL: defaultTTL})
+
+		controller := servers.NewWatcherServer(":8080", routing.New())
+		controller.Run(*addr)
+		for {
+			println("Heartbeat watcher")
+			time.Sleep(time.Second * 10)
+			db.AddProduct(&models.Product{TTL: defaultTTL})
+		}
 	}
 
 	if *service == "reserver" {
