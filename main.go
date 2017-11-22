@@ -14,7 +14,7 @@ var (
 	addr    = flag.String("addr", ":8080", "http service address")
 	ttl     = flag.String("ttl", "100s", "time cancel reserve")
 	service = flag.String("service", "db", "service for running")
-	dbAddr    = flag.String("db_addr", ":8080", "http service address")
+	dbAddr    = flag.String("db_addr", ":8080", "db service address")
 )
 
 func main() {
@@ -37,20 +37,22 @@ func main() {
 	}
 
 	if *service == "watcher" {
-		db := services.NewDataBase()
-		db.AddProduct(&models.Product{TTL: defaultTTL})
 
 		controller := servers.NewWatcherServer(*dbAddr, routing.New())
 		controller.Run(*addr)
 		for {
 			println("Heartbeat watcher")
 			time.Sleep(time.Second * 10)
-			db.AddProduct(&models.Product{TTL: defaultTTL})
 		}
 	}
 
 	if *service == "reserver" {
-		_ = 0
+		controller := servers.NewReserverServer(*dbAddr, routing.New())
+		controller.Run(*addr)
+		for {
+			println("Heartbeat reserver")
+			time.Sleep(time.Second * 10)
+		}
 	}
 
 }
