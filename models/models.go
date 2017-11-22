@@ -31,10 +31,12 @@ func (p *Product) SetHash(hash string) error {
 	return nil
 }
 
+// GetTTL -
 func (p *Product) GetTTL() time.Duration {
 	return p.TTL
 }
 
+// SetTTL -
 func (p *Product) SetTTL(ttl time.Duration) error {
 	p.TTL = ttl
 	return nil

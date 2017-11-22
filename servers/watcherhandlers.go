@@ -3,17 +3,18 @@ package servers
 import (
 	"github.com/qiangxue/fasthttp-routing"
 	"github.com/valyala/fasthttp"
+	"io/ioutil"
 	"net/http"
 	"net/url"
-	"io/ioutil"
 )
 
+// GetProducts -
 func (w *WatcherServer) GetProducts(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
-	urlPath:=url.URL{
+	urlPath := url.URL{
 		Scheme: "http",
-		Host: w.dbAddr,
-		Path: "/products",
+		Host:   w.dbAddr,
+		Path:   "/products",
 	}
 	resp, err := http.Get(urlPath.String())
 	if err != nil {

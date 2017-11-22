@@ -6,14 +6,15 @@ import (
 	"log"
 )
 
-// DBServer -
+// WatcherServer -
 type WatcherServer struct {
-	addr string
+	addr    string
 	dbAddr  string
 	router  *routing.Router
 	errChan chan error
 }
 
+// NewWatcherServer -
 func NewWatcherServer(dbAddr string, router *routing.Router) *WatcherServer {
 	return &WatcherServer{
 		dbAddr:  dbAddr,
@@ -22,6 +23,7 @@ func NewWatcherServer(dbAddr string, router *routing.Router) *WatcherServer {
 	}
 }
 
+// Run -
 func (w *WatcherServer) Run(addr string) {
 	w.registerHandlers()
 	go w.ListenAndServe(addr)

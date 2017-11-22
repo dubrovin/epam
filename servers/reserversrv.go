@@ -1,20 +1,21 @@
 package servers
 
 import (
+	"fmt"
 	"github.com/qiangxue/fasthttp-routing"
 	"github.com/valyala/fasthttp"
 	"log"
-	"fmt"
 )
 
-// DBServer -
+// ReserverServer -
 type ReserverServer struct {
-	addr string
+	addr    string
 	dbAddr  string
 	router  *routing.Router
 	errChan chan error
 }
 
+// NewReserverServer -
 func NewReserverServer(dbAddr string, router *routing.Router) *ReserverServer {
 	return &ReserverServer{
 		dbAddr:  dbAddr,
@@ -23,6 +24,7 @@ func NewReserverServer(dbAddr string, router *routing.Router) *ReserverServer {
 	}
 }
 
+// Run -
 func (r *ReserverServer) Run(addr string) {
 	r.registerHandlers()
 	go r.ListenAndServe(addr)
@@ -42,6 +44,7 @@ func (r *ReserverServer) ReadErrChan() {
 	}
 }
 
+// Index -
 func (r *ReserverServer) Index(ctx *routing.Context) error {
 	fmt.Fprint(ctx, "Welcome to reserver!\n")
 	return nil

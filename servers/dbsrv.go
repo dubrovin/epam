@@ -16,6 +16,7 @@ type DBServer struct {
 	ttl     time.Duration
 }
 
+// NewDBServer -
 func NewDBServer(db *services.DataBase, router *routing.Router, ttl time.Duration) *DBServer {
 	return &DBServer{
 		db:      db,
@@ -25,6 +26,7 @@ func NewDBServer(db *services.DataBase, router *routing.Router, ttl time.Duratio
 	}
 }
 
+// Run -
 func (c *DBServer) Run(addr string, checkerSleep time.Duration) {
 	c.registerHandlers()
 	go c.db.Checker(checkerSleep)

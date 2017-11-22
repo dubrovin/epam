@@ -1,7 +1,20 @@
 # epam
 
-```curl -X GET http://127.0.0.1:8081/products```
-```curl -X GET http://127.0.0.1:8082/products/1/reserve```
+###How to run
+
+1) docker-compose up
+2) build each service by Dockerfile with changing params
+3) local run each service
+
+### How to use
+
+returns all product:  
+```$ curl -X GET http://127.0.0.1:8081/products```  
+
+reserve product by id:  
+ ```$ curl -X GET http://127.0.0.1:8082/products/1/reserve```
+ 
+ accepted reservation by hash:    
 ```
 curl -X POST \
   http://127.0.0.1:8082/reserves/accept \
@@ -9,7 +22,12 @@ curl -X POST \
   -d '{
     "hash": "4debf6c1-a031-4eae-a4b3-2e47c600128e"
 }'
-```
+```  
+
+
+
+additional info, how to update images:  
+
 docker db  
 ```
 docker build ./ -t 'db:epam'  

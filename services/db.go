@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// DataBase -
 type DataBase struct {
 	currentID         int64
 	availableProducts map[int64]*models.Product
@@ -17,6 +18,7 @@ type DataBase struct {
 	mu                sync.RWMutex
 }
 
+// NewDataBase -
 func NewDataBase() *DataBase {
 	return &DataBase{
 		availableProducts: make(map[int64]*models.Product, 1000),
@@ -26,12 +28,14 @@ func NewDataBase() *DataBase {
 	}
 }
 
+// GetProducts -
 func (db *DataBase) GetProducts() map[int64]*models.Product {
 	db.mu.RLock()
 	defer db.mu.RUnlock()
 	return db.availableProducts
 }
 
+// AddProduct -
 func (db *DataBase) AddProduct(product *models.Product) (int64, error) {
 	err := product.SetID(db.currentID)
 	if err != nil {
@@ -46,6 +50,7 @@ func (db *DataBase) AddProduct(product *models.Product) (int64, error) {
 	return product.GetID(), nil
 }
 
+// ReserveProduct -
 func (db *DataBase) ReserveProduct(productID int64, ttl time.Duration) (string, error) {
 
 	if _, ok := db.availableProducts[productID]; ok {
@@ -59,12 +64,12 @@ func (db *DataBase) ReserveProduct(productID int64, ttl time.Duration) (string, 
 		delete(db.availableProducts, productID)
 		log.Printf("Reserved product with hash %s", hash)
 		return hash, nil
-	} else {
-		return "", errors.New("product not found")
 	}
 
+	return "", errors.New("product not found")
 }
 
+// AcceptReserve -
 func (db *DataBase) AcceptReserve(hash string) (bool, error) {
 	db.mu.Lock()
 	defer db.mu.Unlock()
@@ -81,6 +86,7 @@ func (db *DataBase) cancelReserve(hash string) {
 	log.Printf("Canceled reserve for product with hash %s", hash)
 }
 
+// Checker -
 func (db *DataBase) Checker(sleepTime time.Duration) {
 	for {
 		log.Print("Start check")

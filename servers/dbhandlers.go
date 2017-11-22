@@ -7,14 +7,17 @@ import (
 	"strconv"
 )
 
+// AcceptResp -
 type AcceptResp struct {
 	Accepted bool `json:"accepted"`
 }
 
+// HashResp -
 type HashResp struct {
 	Hash string `json:"hash"`
 }
 
+// GetProducts -
 func (c *DBServer) GetProducts(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 
@@ -35,6 +38,7 @@ func (c *DBServer) GetProducts(ctx *routing.Context) error {
 	return nil
 }
 
+// ReserveProduct -
 func (c *DBServer) ReserveProduct(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 	productIDStr := ctx.Param("productid")
@@ -65,6 +69,7 @@ func (c *DBServer) ReserveProduct(ctx *routing.Context) error {
 	return nil
 }
 
+// AcceptReserve -
 func (c *DBServer) AcceptReserve(ctx *routing.Context) error {
 	ctx.SetContentType("application/json")
 
