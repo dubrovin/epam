@@ -2,7 +2,7 @@
 
 ### How to run
 
-1) docker-compose up
+1) ```$ docker-compose up```
 2) build each service by Dockerfile with changing params
 3) local run each service
 
@@ -16,7 +16,7 @@ reserve product by id:
  
  accepted reservation by hash:    
 ```
-curl -X POST \
+$ curl -X POST \
   http://127.0.0.1:8082/reserves/accept \
   -H 'content-type: application/json' \
   -d '{
