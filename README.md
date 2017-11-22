@@ -23,3 +23,10 @@ docker build ./ -t 'watcher:epam'
 docker tag watcher:epam dubrovin/epam-watcher
 docker push dubrovin/epam-watcher
 ```
+
+docker reserver  
+```
+docker build ./ -t 'reserver:epam'  
+docker tag reserver:epam dubrovin/epam-reserver
+docker push dubrovin/epam-reserver
+```

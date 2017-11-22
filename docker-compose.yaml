@@ -10,8 +10,8 @@ services:
     image: dubrovin/epam-watcher
     ports:
       - 0.0.0.0:8081:8081
-#
-#  reserver:
-#    image: dubrovin/epam-reserver
-#    ports:
-#      - 8082:8082
+
+  reserver:
+    image: dubrovin/epam-reserver
+    ports:
+      - 8082:8082
