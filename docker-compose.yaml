@@ -1,11 +1,10 @@
 ##########################################################
 #                  GOLANG SERVICES                       #
 ##########################################################
-
+version: "3"
+services:
   db:
     image: dubrovin/epam-db
-    ports:
-      - 0.0.0.0:8080:8080
 
   watcher:
     image: dubrovin/epam-watcher
