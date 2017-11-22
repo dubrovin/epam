@@ -1,7 +1,7 @@
 package servers
 
 import (
-	"epam/services"
+	"github.com/dubrovin/epam/services"
 	"github.com/qiangxue/fasthttp-routing"
 	"github.com/valyala/fasthttp"
 	"log"

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"epam/models"
+	"github.com/dubrovin/epam/models"
 	"errors"
 	"github.com/satori/go.uuid"
 	"log"

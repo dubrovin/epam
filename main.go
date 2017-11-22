@@ -1,9 +1,9 @@
 package main
 
 import (
-	"epam/models"
-	"epam/servers"
-	"epam/services"
+	"github.com/dubrovin/epam/models"
+	"github.com/dubrovin/epam/servers"
+	"github.com/dubrovin/epam/services"
 	"flag"
 	"github.com/qiangxue/fasthttp-routing"
 	"log"
