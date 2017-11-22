@@ -1,6 +1,6 @@
 # epam
 
-###How to run
+### How to run
 
 1) docker-compose up
 2) build each service by Dockerfile with changing params
