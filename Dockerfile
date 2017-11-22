@@ -10,6 +10,6 @@ RUN go-wrapper download
 
 RUN go-wrapper install
 
-CMD ["go-wrapper", "run", "-service", "wathcer"]
+CMD ["go-wrapper", "run", "-service=db", "-addr=0.0.0.0:8080"]
 
-EXPOSE 8080
+EXPOSE 8081

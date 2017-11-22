@@ -8,6 +8,7 @@ import (
 
 // DBServer -
 type WatcherServer struct {
+	addr string
 	dbAddr  string
 	router  *routing.Router
 	errChan chan error

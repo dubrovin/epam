@@ -5,12 +5,12 @@
   db:
     image: dubrovin/epam-db
     ports:
-      - 8080:8080
+      - 0.0.0.0:8080:8080
 
-#  watcher:
-#    image: dubrovin/epam-watcher
-#    ports:
-#      - 8081:8081
+  watcher:
+    image: dubrovin/epam-watcher
+    ports:
+      - 0.0.0.0:8081:8081
 #
 #  reserver:
 #    image: dubrovin/epam-reserver
